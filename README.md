@@ -1,6 +1,6 @@
 # Relatório de Aquisição - Planta de Pressão
 
-Este documento apresenta o conjunto de dados coletados e processados para a etapa de criação e validação do modelo de redes neurais NARX (Nonlinear Autoregressive Exogenous Model). O processamento inicial consistiu na padronização temporal (amostragem ajustada para intervalos de 1 segundo) e na higienização e formatação dos valores numéricos das variáveis envolvidas: **PV_IN**, **CV** e **PV_OUT**.
+Este documento apresenta o conjunto de dados coletados e processados para a etapa de criação e validação do modelo de redes neurais NARX (Nonlinear Autoregressive Exogenous Model). O processamento inicial consistiu na padronização temporal (amostragem ajustada para intervalos de 1 segundo) e na higienização e formatação dos valores numéricos das variáveis envolvidas: **PV_IN**, **CV** e **PV_LOAD**.
 
 Abaixo estão apresentados os três ensaios principais realizados para o levantamento da dinâmica do sistema:
 
@@ -27,3 +27,4 @@ Este ensaio levanta a curva característica em regime semi-estático para mapear
 - **Arquivo de Dados:** [SEMIESTÁTICA 1_processed.csv](./data/SEMIESTÁTICA%201_processed.csv)
 
 ![Curva Semi Estática](./images/SEMIESTÁTICA%201_plot.png)
+
