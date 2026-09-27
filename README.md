@@ -24,7 +24,7 @@ Este teste consiste em uma aplicação de degraus sequenciais e progressivos, pe
 
 ## 3. Curva Semi Estática
 Este ensaio levanta a curva característica em regime semi-estático para mapear possíveis não linearidades na resposta ao longo de toda a faixa de operação do sistema.
-- **Arquivo de Dados:** [SEMIESTÁTICA 1_processed.csv](./data/SEMIESTÁTICA%201_processed.csv)
+- **Arquivo de Dados:** [SEMIESTÁTICA 2_processed.csv](./data/SEMIESTÁTICA%202_processed.csv)
 
-![Curva Semi Estática](./images/SEMIESTÁTICA%201_plot.png)
+![Curva Semi Estática](./images/SEMIESTÁTICA%202_plot.png)
 
