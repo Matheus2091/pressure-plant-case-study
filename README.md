@@ -10,7 +10,7 @@ Abaixo estão apresentados os três ensaios principais realizados para o levanta
 Neste ensaio, verificamos o comportamento e a resposta do sistema diante de estímulos manuais aplicados na variável de controle (CV), que representa a posição da válvula (sendo 0 para totalmente fechada e 100 para totalmente aberta).
 - **Arquivo de Dados:** [TESTE1_processed.csv](./data/TESTE1_processed.csv)
 
-![Teste de Steps Manual](./images/plot.png)
+![Teste de Steps Manual](./images/TESTE1_plot.png)
 
 ---
 
