@@ -11,7 +11,7 @@ except ImportError:
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', 'git+https://github.com/helonayala/sysid.git'])
     from sysid import NARX
 
-data_path = r'c:\Users\mathe\OneDrive\Desktop\IHM_Press_V3\IHM_Press_V3\IHM_Press\Dataset_NARX\data\RAMPADEGRAIS1_processed.csv'
+data_path = r'..\data\RAMPADEGRAIS1_processed.csv'
 
 df = pd.read_csv(data_path, sep=';', decimal=',')
 df = df.dropna(subset=['CV', 'PV_IN'])
@@ -78,9 +78,10 @@ plt.grid(True)
 
 plt.tight_layout()
 
-plot_dir = r'c:\Users\mathe\OneDrive\Desktop\IHM_Press_V3\IHM_Press_V3\IHM_Press\Dataset_NARX\images'
+plot_dir = r'..\images'
 plot_path = os.path.join(plot_dir, 'modelo_V1_pvin_plot.png')
 plt.savefig(plot_path)
 plt.close()
 
 print(f"\nGráfico salvo com sucesso em: {plot_path}")
+

@@ -14,15 +14,15 @@ except ImportError:
     from sysid import NARX
 
 # Caminho do Dataset da Rampa de Degraus
-data_path = r'c:\Users\mathe\OneDrive\Desktop\IHM_Press_V3\IHM_Press_V3\IHM_Press\Dataset_NARX\data\RAMPADEGRAIS1_processed.csv'
+data_path = r'..\data\RAMPADEGRAIS1_processed.csv'
 
 # Carregamento e preparação dos dados
 df = pd.read_csv(data_path, sep=';', decimal=',')
-df = df.dropna(subset=['CV', 'PV_IN']) # Garante que não teremos NaNs para PV_IN
+df = df.dropna(subset=['CV', 'PV_LOAD']) # Garante que não teremos NaNs
 
-# Variável de Controle (u) e Variável de Processo (y) alterada para PV_IN
+# Variável de Controle (u) e Variável de Processo (y)
 u_train = df['CV'].values
-y_train = df['PV_IN'].values
+y_train = df['PV_LOAD'].values
 
 print(f"Dados carregados! Total de amostras: {len(u_train)}")
 
@@ -32,8 +32,8 @@ nu_model = 2
 ny_model = 2
 poly_order_model = 3
 
-print("Treinando o modelo_V0 (com PV_IN)...")
-# 2. Instanciar e treinar o modelo
+print("Treinando o modelo_V0...")
+# 2. Instanciar e treinar o modelo_V0
 modelo_V0 = NARX(nu=nu_model, ny=ny_model, poly_order_l=poly_order_model, n_components=n_components)
 modelo_V0.fit(u_train, y_train)
 
@@ -68,30 +68,32 @@ plt.figure(figsize=(14, 10))
 
 # Subplot OSA
 plt.subplot(2, 1, 1)
-plt.plot(y_target_osa, label='Sinal Real (PV_IN)', alpha=0.8, color='green')
+plt.plot(y_target_osa, label='Sinal Real (PV_LOAD)', alpha=0.8, color='blue')
 plt.plot(y_hat_osa, label='Predição OSA', linestyle='--', alpha=0.9, color='orange')
-plt.title(f'One-Step-Ahead (OSA) - modelo_V0 (PV_IN) | MSE: {mse_osa:.4f}')
+plt.title(f'One-Step-Ahead (OSA) - modelo_V0 | MSE: {mse_osa:.4f}')
 plt.xlabel('Amostras (s)')
-plt.ylabel('Pressão (PV_IN)')
+plt.ylabel('Pressão')
 plt.legend()
 plt.grid(True)
 
 # Subplot FR
 plt.subplot(2, 1, 2)
-plt.plot(y_actual_for_fr_comparison[:min_len], label='Sinal Real (PV_IN)', alpha=0.8, color='green')
+plt.plot(y_actual_for_fr_comparison[:min_len], label='Sinal Real (PV_LOAD)', alpha=0.8, color='blue')
 plt.plot(y_hat_fr[:min_len], label='Simulação FR', linestyle='--', alpha=0.9, color='red')
-plt.title(f'Free-Run (FR) - modelo_V0 (PV_IN) | MSE: {mse_fr:.4f}')
+plt.title(f'Free-Run (FR) - modelo_V0 | MSE: {mse_fr:.4f}')
 plt.xlabel('Amostras (s)')
-plt.ylabel('Pressão (PV_IN)')
+plt.ylabel('Pressão')
 plt.legend()
 plt.grid(True)
 
 plt.tight_layout()
 
 # Salva a imagem na pasta de imagens do projeto
-plot_dir = r'c:\Users\mathe\OneDrive\Desktop\IHM_Press_V3\IHM_Press_V3\IHM_Press\Dataset_NARX\images'
-plot_path = os.path.join(plot_dir, 'modelo_V0_pvin_plot.png')
+plot_dir = r'..\images'
+plot_path = os.path.join(plot_dir, 'modelo_V0_plot.png')
 plt.savefig(plot_path)
 plt.close()
 
 print(f"\nGráfico salvo com sucesso em: {plot_path}")
+
+
