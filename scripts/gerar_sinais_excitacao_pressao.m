@@ -79,11 +79,11 @@ figure(2); plot(t2, u2); title('Degraus Aleatorios'); xlabel('Tempo (s)'); ylabe
 %% ========================================================================
 % 3. Swept Sine (Chirp) - Frequencia aumentando gradativamente
 % =========================================================================
-disp('Gerando Swept Sine...');
-Fmax3 = 0.5; % Frequência máxima desejada (rad/s)
+disp('Gerando Swept Sine BEM LENTO...');
+Fmax3 = 0.2; % Frequência máxima reduzida (rad/s) para a planta acompanhar
 A3 = 50; % Amplitude da onda
 
-T0 = 60; % Período do sinal (60 segundos no total)
+T0 = 600; % Período do sinal esticado para 10 minutos (600 segundos)
 f0 = 1/T0; % Frequência fundamental
 k1 = 1; % Índice de frequência mais baixo
 k2 = Fmax3/f0; % Índice de frequência mais alto
