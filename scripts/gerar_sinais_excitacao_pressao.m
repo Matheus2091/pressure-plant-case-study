@@ -50,8 +50,8 @@ figure(1); plot(t1, u1); title('Curva Semi Estatica'); xlabel('Tempo (s)'); ylab
 % =========================================================================
 disp('Gerando Sequencia de Degraus...');
 rng(0) % Fixa a semente aleatória (garante que os degraus sejam sempre os mesmos)
-Tf2 = 120; % Tempo total gerando degraus
-Tduracao = 2; % Duração de cada degrau "parado" em segundos
+Tf2 = 600; % Tempo total gerando degraus
+Tduracao = 120; % Duração de cada degrau "parado" em segundos
 amp2 = 50; % Variação máxima do degrau (vai variar entre -50 e +50 em torno do DC)
 
 t_temp = (0:Ts:Tf2);
