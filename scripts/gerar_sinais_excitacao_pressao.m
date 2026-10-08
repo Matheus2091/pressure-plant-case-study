@@ -50,8 +50,8 @@ figure(1); plot(t1, u1); title('Curva Semi Estatica'); xlabel('Tempo (s)'); ylab
 % =========================================================================
 disp('Gerando Sequencia de Degraus...');
 rng(0) % Fixa a semente aleatória (garante que os degraus sejam sempre os mesmos)
-Tf2 = 600; % Tempo total gerando degraus
-Tduracao = 120; % Duração de cada degrau "parado" em segundos
+Tf2 = 1200; % Tempo total gerando degraus
+Tduracao = 60; % Duração de cada degrau "parado" em segundos
 amp2 = 50; % Variação máxima do degrau (vai variar entre -50 e +50 em torno do DC)
 
 t_temp = (0:Ts:Tf2);
@@ -61,14 +61,14 @@ N_temp = length(t_temp);
 Ndeg = round(Tduracao/Ts); 
 % Descobre quantos degraus aleatórios cabem dentro dos 120 segundos
 Nrand = floor((N_temp-1)/Ndeg);
-% Sorteia os valores dos degraus entre -amp2 e +amp2
-randSteps = amp2*(2*rand(Nrand,1)-1);
+% Sorteia os valores dos degraus diretamente entre 0 e 100%
+randSteps = 100 * rand(Nrand,1);
 % Clona o valor sorteado para que ele fique constante por 'Ndeg' amostras
 Umat = repmat(randSteps,1,Ndeg)';
 
-% Constrói o sinal colando 2x zeropads, a matriz de degraus somada com o 
-% setpoint médio (valorDC = 50), e finaliza com mais zeropads
-u2 = [zeropad zeropad ([zeropad zeropad Umat(:)' zeropad zeropad] + valorDC) zeropad zeropad];
+% Constrói o sinal garantindo que todos os períodos de repouso (zeropads) fiquem em 0%
+% em vez de subir para 50% antes dos degraus começarem.
+u2 = [zeropad zeropad zeropad zeropad Umat(:)' zeropad zeropad zeropad zeropad];
 N2 = length(u2);
 t2 = ((1:N2)-1)*Ts;
 
