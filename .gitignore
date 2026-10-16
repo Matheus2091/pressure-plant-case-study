@@ -1,0 +1,17 @@
+# MATLAB autosave and backup files
+*.asv
+*.m~
+*.slxc
+
+# Python cache and environments
+__pycache__/
+*.py[cod]
+*.class
+.venv/
+env/
+venv/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini

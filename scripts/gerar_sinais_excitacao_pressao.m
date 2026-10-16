@@ -50,7 +50,7 @@ figure(1); plot(t1, u1); title('Curva Semi Estatica'); xlabel('Tempo (s)'); ylab
 % =========================================================================
 disp('Gerando Sequencia de Degraus...');
 rng(0) % Fixa a semente aleatória (garante que os degraus sejam sempre os mesmos)
-Tf2 = 1200; % Tempo total gerando degraus
+Tf2 = 3600; % Tempo total gerando degraus
 Tduracao = 60; % Duração de cada degrau "parado" em segundos
 amp2 = 50; % Variação máxima do degrau (vai variar entre -50 e +50 em torno do DC)
 
@@ -79,11 +79,11 @@ figure(2); plot(t2, u2); title('Degraus Aleatorios'); xlabel('Tempo (s)'); ylabe
 %% ========================================================================
 % 3. Swept Sine (Chirp) - Frequencia aumentando gradativamente
 % =========================================================================
-disp('Gerando Swept Sine BEM LENTO...');
-Fmax3 = 0.2; % Frequência máxima reduzida (rad/s) para a planta acompanhar
+disp('Gerando Swept Sine...');
+Fmax3 = 0.1; % Frequência máxima reduzida (rad/s) para a planta acompanhar
 A3 = 50; % Amplitude da onda
 
-T0 = 600; % Período do sinal esticado para 10 minutos (600 segundos)
+T0 = 1200; % Período do sinal esticado para 10 minutos (600 segundos)
 f0 = 1/T0; % Frequência fundamental
 k1 = 1; % Índice de frequência mais baixo
 k2 = Fmax3/f0; % Índice de frequência mais alto
