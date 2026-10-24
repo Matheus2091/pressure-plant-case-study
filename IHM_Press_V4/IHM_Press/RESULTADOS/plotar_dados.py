@@ -59,11 +59,6 @@ def encontrar_arquivo(origem: str | Path) -> Path:
     caminho_relativo = pasta_script / origem
     if caminho_relativo.exists():
         return caminho_relativo.resolve()
-
-    # Verifica se o arquivo esta na pasta ../data
-    caminho_data = pasta_script.parent / 'data' / origem
-    if caminho_data.exists():
-        return caminho_data.resolve()
         
     # 3. Fallback: Se não encontrou, lista arquivos CSV/XLSX disponíveis na pasta para ajudar o usuário
     arquivos_disp = list(pasta_script.glob("*.csv")) + list(pasta_script.glob("*.xlsx"))

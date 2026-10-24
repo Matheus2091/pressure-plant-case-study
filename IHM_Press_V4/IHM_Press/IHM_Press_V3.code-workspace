@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "Planta Pressao (Raiz do Projeto)",
+			"path": "../../.."
+		},
+		{
+			"name": "IHM e Supervisorio Elipse",
+			"path": "."
+		},
+		{
+			"name": "Resultados de Ensaios",
+			"path": "RESULTADOS"
+		}
+	],
+	"settings": {}
+}

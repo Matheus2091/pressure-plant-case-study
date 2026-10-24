@@ -15,3 +15,9 @@ venv/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# SCADA and Industrial Backups (Elipse E3)
+**/Bak/
+*.bak
+TempBD*
+**/dot_git_backup/

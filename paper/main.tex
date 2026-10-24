@@ -1,0 +1,263 @@
+%===============================================================================
+% $Id: ifacconf.tex 19 2011-10-27 09:32:13Z jpuente $  
+% Template for IFAC meeting papers
+% Copyright (c) 2007-2008 International Federation of Automatic Control
+%===============================================================================
+\documentclass{ifacconf}
+\usepackage{xcolor}
+
+% Mude para \instrfalse para esconder todas as instruções
+\newif\ifinstr \instrtrue
+% \newif\ifinstr \instrfalse
+
+\newcommand{\instr}[1]{%
+  \ifinstr
+    \par\noindent
+    \fcolorbox{orange!80!black}{yellow!20}{%
+      \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{%
+        \small\sffamily\color{orange!40!black}%
+        \textbf{Instrução:} #1}}%
+    \par\medskip
+  \fi}
+
+\newcommand{\tamanho}[1]{%
+  \ifinstr
+    \par\noindent
+    \fcolorbox{blue!80!black}{gray!20}{%
+      \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{%
+        \small\sffamily\color{black!40!black}%
+        \textbf{Tamanho:} #1}}%
+    \par\medskip
+  \fi}
+
+
+  
+\usepackage{graphicx}      % include this line if your document contains figures
+\usepackage{natbib}        % required for bibliography
+%===============================================================================
+\begin{document}
+\begin{frontmatter}
+
+\title{A case study for nonlinear system identification of pressure control systems\thanksref{footnoteinfo}} 
+% Title, preferably not more than 10 words.
+
+\thanks[footnoteinfo]{Sponsor and financial support acknowledgment
+goes here. Paper titles should be written in uppercase and lowercase
+letters, not all uppercase.}
+
+\author[First]{Matheus Kale Mendes} 
+\author[First]{Fabricio Cassanho Teodoro} 
+\author[First]{Gabriel Tartari}
+\author[First]{Helon Vicente Hultmann Ayala}
+
+\address[First]{PUCPR \textbf{(completar aqui)} (e-mail: author@ boulder.nist.gov).}
+% \address[First]{National Institute of Standards and Technology, Boulder, CO 80305 USA (e-mail: author@ boulder.nist.gov).}
+
+\begin{abstract}                % Abstract of not more than 250 words.
+These instructions give you guidelines for preparing papers for IFAC
+technical meetings. Please use this document as a template to prepare
+your manuscript. For submission guidelines, follow instructions on
+paper submission system as well as the event website.
+
+\instr{preencher apenas no final.}
+
+\end{abstract}
+
+\begin{keyword}
+Five to ten keywords, preferably chosen from the IFAC keyword list.
+\end{keyword}
+
+\end{frontmatter}
+%===============================================================================
+
+\section{Introduction}
+
+\tamanho{1.5 pp. (contando resumo titulo etc)}
+
+\textit{Contextualization: } cogito ergo sum.
+
+\instr{Contextualização: sistemas de pressão aparecem em várias aplicações
+(bleed aircraft engines, processos químicos etc.). }
+
+\textit{Motivation: } cogito ergo sum.
+
+\instr{Justificar pq é importante. modelar e controlar pressao, simulacao é importante, data-driven simulation idem, etc.}
+
+\textit{Literature review:}  cogito ergo sum.
+
+\instr{Revisão da literatura: estudos de caso sobre modelagem e controle de pressão.}
+
+\textit{Contributions:} cogito ergo sum.
+
+\instr{Contribuição: liste em itens o que este artigo traz de novo.}
+
+The remaining of the paper is organized as follows. In Section \ref{sec:case} ...
+
+\section{Case Study} \label{sec:case}
+\tamanho{1 p.}
+
+\textit{Description:} cogito ergo sum.
+
+\instr{Physical system description (with diagrams). Adicionar fotos.}
+
+\textit{Hardware:} cogito ergo sum.
+
+\instr{Ecquipment used (components: valves, tanks, sensors, CLP, etc.)}
+
+\section{Experimental Design}
+\tamanho{1 p.}
+
+\instr{Describe excitation signals (plot them on a graph)}
+
+\instr{Describe measured output signals (plot them on a graph).}
+
+\subsection{Access to the datasets}
+
+\instr{Create a github repo; check the guidelines of Scientific Data, for example; check the BAB datasets)}
+
+The datasets will continue to evolve as more acquisitions are made available, as the repository will allow to download more up to date datasets. The repository will be tagged so the comparisons will be readily available according to a given dataset recquired. 
+
+\section{Results}
+\tamanho{1.5 pp.}
+
+In this section, we present an example of black-box modeling for control using all available sensory information. First, the experimental data collection and partitioning protocol are defined. Next, linear ARX and nonlinear polynomial NARX MISO models are identified and evaluated under one-step-ahead (OSA) prediction and open-loop free-run (FR) simulation regimes. Finally, a quantitative performance comparison is discussed to highlight the impact of nonlinear aerodynamic effects.
+
+\instr{adicionar no paragrafo acima um resumo do que se encontra na secao}
+
+\textit{Model creation setup:} cogito ergo sum.
+
+
+
+\begin{itemize}
+    \item \textbf{Data and sampling:} Experimental assay with random step excitation (\texttt{Random Steps\_4.csv}) sampled at 4~Hz ($\Delta t=0.25$~s), totaling 15,466 samples (64.4~minutes of operation).
+    
+    \item \textbf{Data partitioning (50\% Train / 50\% Test):} The first 32.2~minutes (7,733 samples) are used for model identification and parameter estimation, while the remaining 32.2~minutes (7,733 samples) are reserved exclusively for out-of-sample testing.
+    
+    \item \textbf{MISO variables:} Output $y(k) = \mathrm{PV\_OUT}(k)$ [psi] (receiver tank outlet pressure); inputs $u_1(k) = \mathrm{CV}(k)$ [\%] (proportional valve command) and $u_2(k) = \mathrm{PV\_IN}(k)$ [psi] (filtered upstream supply pressure). Unfiltered supply sensor readings $\mathrm{PT\_IN}(k)$ are also logged for process monitoring.
+    
+    \item \textbf{Delays and search space:} Maximum lags $n_y = 3$ and $n_u = 3$ for each input. Linear search space for the ARX model ($\ell = 1$, 6 candidate terms including constant offset) and polynomial degree $\ell = 3$ for the NARX model (8 terms selected).
+    
+    \item \textbf{Selection algorithm:} Orthogonal Least Squares (OLS for ARX and FROLS for NARX) ranked by Error Reduction Ratio (ERR).
+    
+    \item \textbf{Validation regimes and metric:} Evaluated under One-Step-Ahead (OSA) prediction and Free-Run (FR) open-loop recursive simulation, quantified by the Root Mean Squared Error (RMSE in psi).
+\end{itemize} 
+
+
+\instr{Descrever todas as condições para criar os modelos (hiperparametros). Definir protocolo de treino e teste (quais datasets sao usados e para que, referenciar secao anterior). Metrica para comparacao (RMSE). \textbf{2A FEIRA}}
+
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7.7cm]{fig/Random Steps_4.png}
+\caption{Experimental dataset (\texttt{Random Steps\_4}): excitation signals (valve command $\mathrm{CV}$, raw and filtered upstream supply pressure $\mathrm{PV\_IN}$) and vessel pressure response ($\mathrm{PV\_OUT}$).} 
+\label{fig:acquisition_data}
+\end{center}
+\end{figure}
+
+
+\instr{Resultados ARX modeling (linear model). Modelo final, plot dado vs. teste (FR). \textbf{Começar com figuras / bullets} \textbf{2A FEIRA}}
+OQ SAO RESULTADOS:
+
+\begin{itemize}
+    \item PLOT DATA VS MODEL: Fig. \ref{fig:arx_results} compares the measured pressure with the linear ARX model responses in One-Step-Ahead (OSA) prediction and Free-Run (FR) open-loop simulation on the test partition.
+\end{itemize}
+
+
+The identified linear ARX model equation is:
+\begin{equation}
+\begin{array}{rl}
+y(k) = & 0.9911\,y(k-1) \\
+       & + 2.13\times 10^{-3}\,\mathrm{CV}(k-1) \\
+       & - 0.1583\,\mathrm{PV\_IN}(k-1) \\
+       & + 0.2785\,\mathrm{PV\_IN}(k-2) \\
+       & - 0.1279\,\mathrm{PV\_IN}(k-3) \\
+       & + 0.6858
+\end{array}
+\label{eq:arx_model}
+\end{equation}
+
+Analysis of ARX results:
+\begin{itemize}
+    \item \textbf{Dominant regressor:} The past output term $y(k-1)$ accounts for over 99.99\% of the explained variance (ERR).
+    \item \textbf{Test performance:} Achieves an RMSE of 0.1170~psi in OSA prediction, but the error increases to 2.6137~psi in open-loop Free-Run simulation.
+    \item \textbf{Linear limitation:} The model gradually drifts from the true trajectory over extended recursive simulation horizons, highlighting that purely linear dynamics cannot capture the underlying pneumatic nonlinearities.
+\end{itemize}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7.7cm]{fig/Resultado_ARX_1.png}
+\caption{Linear ARX model on test data: open-loop simulation (Free-Run) and one-step-ahead prediction (OSA) compared against measured pressure.} 
+\label{fig:arx_results}
+\end{center}
+\end{figure}
+
+
+
+\instr{Resultados NARX modeling (nonlinear model).\textbf{ Começar com figuras / bullets} \textbf{2A FEIRA}}
+
+
+The identified nonlinear NARX model equation is:
+
+\begin{equation}
+\begin{array}{rl}
+y(k) = & 0.5503\,y(k-1) + 0.4415\,y(k-3) \\
+       & + 7.48\times 10^{-3}\,\mathrm{CV}(k-3) \\
+       & + 9.90\times 10^{-7}\,\mathrm{CV}(k-2)\mathrm{PV\_IN}^2(k-2) \\
+       & - 7.25\times 10^{-7}\,y(k-1)\mathrm{CV}^2(k-2) \\
+       & - 2.37\times 10^{-4}\,y^2(k-3)\mathrm{PV\_IN}(k-1) \\
+       & + 2.35\times 10^{-4}\,y^2(k-3)\mathrm{PV\_IN}(k-2) \\
+       & - 5.36\times 10^{-7}\,\mathrm{CV}^2(k-3)\mathrm{PV\_IN}(k-1)
+\end{array}
+\label{eq:narx_model}
+\end{equation}
+
+Fig. \ref{fig:narx_results} presents the measured pressure compared with the nonlinear NARX model predictions on the unseen test dataset. 
+
+Analysis: 
+\begin{itemize}
+    \item \textbf{Physical coupling:} The FROLS algorithm selected cross-coupling terms such as $\mathrm{CV}(k-2)\mathrm{PV\_IN}^2(k-2)$, representing valve orifice flow characteristics and gas compressibility effects.
+    \item \textbf{Error reduction:} In open-loop Free-Run simulation, the test RMSE drops from 2.6137~psi to 0.9848~psi (a 62.3\% error reduction compared to the linear model), while the OSA RMSE reaches 0.0967~psi.
+    \item \textbf{General assessment:} The nonlinear model accurately reproduces both rapid pressurization transients and asymmetric slow discharge curves across the entire 32.2-minute test period.
+\end{itemize}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7.7cm]{fig/Resultados_NARX_1.png}
+\caption{Nonlinear NARX model validation on test data: open-loop simulation (Free-Run) and OSA prediction compared against measured pressure.} 
+\label{fig:narx_results}
+\end{center}
+\end{figure}
+
+
+\instr{Tabela comparativa (RMSE).}
+
+
+\begin{table}[!ht]
+\begin{center}
+\caption{Performance comparison between ARX and NARX models (RMSE in psi).}\label{tb:comparison}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\hline
+Model & Train OSA & Train FR & Test OSA & Test FR \\ \hline
+ARX (Linear, $\ell=1$)     & 0.1281 & 2.2257 & 0.1170 & 2.6137 \\
+NARX (Nonlinear, $\ell=3$) & 0.1060 & 0.6029 & \textbf{0.0967} & \textbf{0.9848} \\ \hline
+\end{tabular}%
+}
+\end{center}
+\end{table}
+
+
+\instr{Soft sensing (1st model the sensor according to the command and output pressure and 2nd use it for simulation -- with simulation data only from the model)}
+
+\section{Conclusion}
+
+\tamanho{1 p. (contando as referências)}
+
+The present paper proposed a new case study on pressure modeling ... 
+
+\begin{ack}
+Place acknowledgments here.
+\end{ack}
+
+\bibliography{ifacconf}      
+
+\end{document}
