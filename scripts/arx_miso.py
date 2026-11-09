@@ -296,28 +296,15 @@ if __name__ == "__main__":
 
     print("#Generating data graph...")
     fig1, (ax1, ax3) = plt.subplots(2, 1, figsize=(3.4, 3.5), sharex=True)
-    plt.subplots_adjust(left=0.18, right=0.80, top=0.90, bottom=0.20, hspace=0.16)
+    plt.subplots_adjust(left=0.18, right=0.94, top=0.96, bottom=0.20, hspace=0.16)
 
-
-    ax1.plot(tempo_total_min, df[col_cv].values, color='#d95f02', linewidth=0.8, label=r'Valve $\mathrm{CV}$')
+    ax1.plot(tempo_total_min, df[col_cv].values, color='#d95f02', linewidth=0.8)
     ax1.set_ylabel(r'Valve $\mathrm{CV}$ (%)', color='#d95f02', fontweight='bold')
     ax1.tick_params(axis='y', labelcolor='#d95f02')
     ax1.set_ylim(-5, 115)
     ax1.grid(True)
 
-    ax2 = ax1.twinx()
-    ax2.plot(tempo_total_min, df[col_in_filt].values, color='#1b9e77', linewidth=0.85, label=r'Supply $P_{\mathrm{in}}$')
-    ax2.set_ylabel(r'Supply $P_{\mathrm{in}}$ (psi)', color='#1b9e77', fontweight='bold')
-    ax2.tick_params(axis='y', labelcolor='#1b9e77')
-    ax2.set_ylim(58, 85)
-
-    h1, l1 = ax1.get_legend_handles_labels()
-    h2, l2 = ax2.get_legend_handles_labels()
-    ax1.legend(h1 + h2, l1 + l2, loc='lower center', bbox_to_anchor=(0.5, 1.02), ncol=2, frameon=True,
-               facecolor='white', edgecolor='#cccccc', framealpha=0.95, fontsize=7.0,
-               columnspacing=0.8, handletextpad=0.35, borderpad=0.25)
-
-    ax3.plot(tempo_total_min, df[col_out].values, color='#2b5c8f', linewidth=0.8, label='Measured (100% Train)')
+    ax3.plot(tempo_total_min, df[col_out].values, color='#2b5c8f', linewidth=0.8, label='Measured')
     ax3.set_xlabel('Time (min)')
     ax3.set_ylabel(r'Vessel $P_{\mathrm{out}}$ (psi)', fontweight='bold')
     ax3.set_ylim(0, 50)
@@ -329,6 +316,8 @@ if __name__ == "__main__":
     for ext in ['pdf', 'png']:
         fig1.savefig(os.path.join(paper_fig_dir, f'Random Steps_4.{ext}'), dpi=300)
         fig1.savefig(os.path.join(images_dir, f'Random Steps_4.{ext}'), dpi=300)
+        fig1.savefig(os.path.join(paper_fig_dir, f'acquisition_data.{ext}'), dpi=300)
+        fig1.savefig(os.path.join(images_dir, f'acquisition_data.{ext}'), dpi=300)
     plt.show()
 
     # ==========================================================================
@@ -340,11 +329,11 @@ if __name__ == "__main__":
     nu_orders = {'CV': 3, 'PV_IN': 3}
     rho = 6
 
-    print(f"\nTreinando ARX MISO (ny={ny_order}, nu=3, selecionando {num_termos_selecionar} termos)...")
+    print(f"\nTreinando ARX MISO (ny={ny_order}, nu=3, selecionando {rho} termos)...")
     modelo_arx = ARX_MISO_OLS(
         ny=ny_order,
         nu_dict=nu_orders,
-        rho=num_termos_selecionar,
+        rho=rho,
         include_constant=True
     )
     modelo_arx.fit(u_train, y_train)
@@ -386,19 +375,13 @@ if __name__ == "__main__":
 
     print("\nGenerating graphical results ARX...")
     fig2, (ax1, ax3) = plt.subplots(2, 1, figsize=(3.4, 3.5), sharex=True)
-    plt.subplots_adjust(left=0.18, right=0.80, top=0.96, bottom=0.20, hspace=0.16)
+    plt.subplots_adjust(left=0.18, right=0.94, top=0.96, bottom=0.20, hspace=0.16)
 
     ax1.plot(tempo_test_min, df_test[col_cv].values[modelo_arx.max_lag:], color='#d95f02', linewidth=0.8)
     ax1.set_ylabel(r'Valve $\mathrm{CV}$ (%)', color='#d95f02', fontweight='bold')
     ax1.tick_params(axis='y', labelcolor='#d95f02')
     ax1.set_ylim(-5, 115)
     ax1.grid(True)
-
-    ax2 = ax1.twinx()
-    ax2.plot(tempo_test_min, df_test[col_in_filt].values[modelo_arx.max_lag:], color='#1b9e77', linewidth=0.8)
-    ax2.set_ylabel(r'Supply $P_{\mathrm{in}}$ (psi)', color='#1b9e77', fontweight='bold')
-    ax2.tick_params(axis='y', labelcolor='#1b9e77')
-    ax2.set_ylim(58, 85)
 
     ax3.plot(tempo_test_min, y_tgt_test, color='black', linewidth=0.85, label='Measured')
     ax3.plot(tempo_test_min, y_hat_test_fr, color='#e41a1c', linestyle='--', linewidth=0.95, label=f'Free-Run ({rmse_test_fr:.2f})')

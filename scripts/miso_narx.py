@@ -169,7 +169,7 @@ class MISONARX:
             y_hat_fr[:self.max_lag] = y_arr[:self.max_lag]
             
             for k in range(self.max_lag, N):
-                # Constrói o vetor base no instante k
+    
                 base = []
                 if self.ny > 0:
                     base.extend([y_hat_fr[k - i] for i in range(1, self.ny + 1)])

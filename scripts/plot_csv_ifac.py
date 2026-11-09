@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 # ==============================================================================
 # CONFIGURAÇÃO DE ENTRADA E SAÍDA
 # ==============================================================================
-# CSV de entrada padrão: Sinal de excitação em degraus gerado pelo MATLAB
-ARQUIVO_CSV_PADRAO = r"..\data\sinal_degraus_aleatorios.csv"
+# CSV de entrada padrão: Ensaio experimental de degraus aleatórios
+ARQUIVO_CSV_PADRAO = r"..\data\Random Steps_4.csv"
 
 # Nome base do arquivo de imagem que será gerado (.png e .pdf)
-NOME_SAIDA_FIGURA = "Excitation_Random_Steps"
+NOME_SAIDA_FIGURA = "acquisition_data"
 
 # Pasta onde a imagem gerada será salva:
 PASTA_IMAGENS_DESTINO = r"..\images"
@@ -96,29 +96,15 @@ def plotar_e_salvar(caminho_csv, nome_saida=None, pasta_destino=None, dt=0.25, m
         t = t_sec / 60.0 if unidade_tempo == "min" else t_sec
 
         fig, (ax1, ax3) = plt.subplots(2, 1, figsize=(3.4, 3.5), sharex=True)
-        plt.subplots_adjust(left=0.18, right=0.80, top=0.90, bottom=0.20, hspace=0.16)
+        plt.subplots_adjust(left=0.18, right=0.94, top=0.96, bottom=0.20, hspace=0.16)
 
-        ax1.plot(t, df[col_cv].values, color="#d95f02", linewidth=0.85, label=r"Valve $\mathrm{CV}$")
+        ax1.plot(t, df[col_cv].values, color="#d95f02", linewidth=0.8)
         ax1.set_ylabel(r"Valve $\mathrm{CV}$ (%)", color="#d95f02", fontweight="bold")
         ax1.tick_params(axis="y", labelcolor="#d95f02")
-        ax1.set_ylim(-5, 110)
+        ax1.set_ylim(-5, 115)
         ax1.grid(True)
 
-        ax2 = ax1.twinx()
-        ax2.plot(t, df[col_in].values, color="#1b9e77", linewidth=0.85, label=r"Supply $\mathrm{PV\_IN}$")
-        ax2.set_ylabel(r"Supply $P_{\mathrm{in}}$ (psi)", color="#1b9e77", fontweight="bold")
-        ax2.tick_params(axis="y", labelcolor="#1b9e77")
-        p_in_min = max(50, np.floor(df[col_in].min() - 4))
-        p_in_max = min(90, np.ceil(df[col_in].max() + 4))
-        ax2.set_ylim(p_in_min, p_in_max)
-
-        h1, l1 = ax1.get_legend_handles_labels()
-        h2, l2 = ax2.get_legend_handles_labels()
-        ax1.legend(h1 + h2, l1 + l2, loc="lower center", bbox_to_anchor=(0.5, 1.02), ncol=2, frameon=True,
-                   facecolor="white", edgecolor="#cccccc", framealpha=0.95, fontsize=7.0,
-                   columnspacing=0.8, handletextpad=0.35, borderpad=0.25)
-
-        ax3.plot(t, df[col_out].values, color="#2b5c8f", linewidth=0.9, label=r"Measured $\mathrm{PV\_OUT}$")
+        ax3.plot(t, df[col_out].values, color="#2b5c8f", linewidth=0.8, label="Measured")
         if mostrar_split:
             split_idx = int(num_total * 0.5)
             t_split = t[split_idx]
