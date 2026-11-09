@@ -21,3 +21,8 @@ Desktop.ini
 *.bak
 TempBD*
 **/dot_git_backup/
+
+# Reference Literature (Copyrighted PDFs)
+Artigos Referencia/
+Fichamento_Artigos_Referencia.pdf
+*.pdf.crdownload
