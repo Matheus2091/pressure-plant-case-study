@@ -163,13 +163,12 @@ Open and run `scripts/closed_loop_system_Test.m` in MATLAB.
 If you use this benchmark dataset or code in your research, please cite:
 
 ```bibtex
-@inproceedings{Mendes2026Pressure,
-  author    = {Mendes, Matheus Kale and Teodoro, Fabricio Cassanho and Tartari, Gabriel Ribeiro and Ayala, Helon Vicente Hultmann},
-  title     = {A case study for nonlinear system identification of pressure control systems},
-  booktitle = {Proceedings of the IFAC Conference},
-  year      = {2026},
-  address   = {Curitiba, Brazil},
-  note      = {Open dataset available at: https://github.com/Matheus2091/pressure-plant-case-study}
+@misc{Mendes2026Pressure,
+  author       = {Mendes, Matheus Kale and Teodoro, Fabricio Cassanho and Tartari, Gabriel Ribeiro and Ayala, Helon Vicente Hultmann},
+  title        = {A case study for nonlinear system identification of pressure control systems},
+  year         = {2026},
+  howpublished = {\url{https://github.com/Matheus2091/pressure-plant-case-study}},
+  note         = {Open experimental dataset and benchmark for nonlinear system identification}
 }
 ```
 
